@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Property {
+  id        String   @id @default(uuid())
+  name      String
+  type      String   // "WEG" or "MV"
+  managerId String?
+  accountantId String?
+  
+  buildings Building[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Building {
+  id        String   @id @default(uuid())
+  propertyId String
+  property  Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  
+  street    String
+  number    String
+  zip       String
+  city      String
+  
+  units     Unit[]
+}
+
+model Unit {
+  id        String   @id @default(uuid())
+  buildingId String
+  building  Building @relation(fields: [buildingId], references: [id], onDelete: Cascade)
+  
+  type      String   // "Apartment", "Office", "Garden", "Parking"
+  number    String
+  floor     Int
+  entrance  String?
+  rooms     Float
+  size      Float    // sqm
+  
+  // WEG specific
+  coOwnershipShare Float? 
+  constructionYear Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Manager {
+  id    String @id @default(uuid())
+  name  String
+  email String
+}
+
+model Accountant {
+  id    String @id @default(uuid())
+  name  String
+  email String
+}
