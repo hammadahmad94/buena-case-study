@@ -4,6 +4,8 @@ const prisma = new PrismaClient();
 const findAll = async () => {
     return await prisma.property.findMany({
         include: {
+            manager: true,
+            accountant: true,
             buildings: {
                 include: {
                     units: true
@@ -20,6 +22,8 @@ const findById = async (id) => {
     return await prisma.property.findUnique({
         where: { id },
         include: {
+            manager: true,
+            accountant: true,
             buildings: {
                 include: {
                     units: true
@@ -42,6 +46,8 @@ const create = async (data) => {
                     number: b.number,
                     zip: b.zip,
                     city: b.city,
+                    country: b.country,
+                    description: b.description,
                     units: {
                         create: b.units?.map(u => ({
                             type: u.type,
@@ -58,6 +64,8 @@ const create = async (data) => {
             }
         },
         include: {
+            manager: true,
+            accountant: true,
             buildings: {
                 include: {
                     units: true
