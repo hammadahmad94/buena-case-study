@@ -65,7 +65,7 @@ export default function UnitsStep({ units, setUnits, buildings, showValidation }
     { field: 'entrance', headerName: 'Entrance', width: 100, editable: true },
     { field: 'rooms', headerName: 'Rooms', type: 'number', width: 80, editable: true },
     { field: 'size', headerName: 'Size (qm) *', type: 'number', width: 110, editable: true },
-    { field: 'constructionYear', headerName: 'Year', type: 'number', width: 90, editable: true },
+    { field: 'constructionYear', headerName: 'Year', width: 90, editable: true },
     { field: 'coOwnershipShare', headerName: 'Share (1/1000)', type: 'number', width: 130, editable: true },
     {
       field: 'actions',

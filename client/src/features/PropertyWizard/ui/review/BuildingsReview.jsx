@@ -23,7 +23,8 @@ export default function BuildingsReview({ buildings }) {
               <Grid item xs={12} sm={6} md={4} key={b.id}>
                   <Paper variant="outlined" sx={{ p: 1, bgcolor: '#f9f9f9' }}>
                       <Typography variant="subtitle2">{b.street} {b.number}</Typography>
-                      <Typography variant="caption" color="text.secondary">{b.zip} {b.city}</Typography>
+                      <Typography variant="caption" display="block" color="text.secondary">{b.zip} {b.city} {b.country && `, ${b.country}`}</Typography>
+                      {b.description && <Typography variant="caption" display="block" sx={{ mt: 0.5, fontStyle: 'italic' }}>{b.description}</Typography>}
                   </Paper>
               </Grid>
             ))}

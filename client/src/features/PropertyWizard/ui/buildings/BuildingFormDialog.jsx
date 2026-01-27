@@ -19,10 +19,12 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
         street: editingBuilding.street,
         number: editingBuilding.number,
         zip: editingBuilding.zip,
-        city: editingBuilding.city
+        city: editingBuilding.city,
+        country: editingBuilding.country || '',
+        description: editingBuilding.description || ''
       });
     } else {
-      setFormData({ street: '', number: '', zip: '', city: '' });
+      setFormData({ street: '', number: '', zip: '', city: '', country: '', description: '' });
     }
     setShowErrors(false);
   }, [editingBuilding, open]);
@@ -94,6 +96,27 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
               onChange={handleChange}
               error={showErrors && !formData.city.trim()}
               helperText={showErrors && !formData.city.trim() ? "Required" : ""}
+            />
+        </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Country"
+              name="country"
+              value={formData.country}
+              onChange={handleChange}
+              placeholder="e.g. Germany"
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={3}
+              label="Description / Other Details"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
             />
           </Grid>
         </Grid>
