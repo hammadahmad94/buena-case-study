@@ -8,7 +8,7 @@ import SuccessStep from './ui/SuccessStep';
 
 const steps = ['Upload PDF', 'Review Data', 'Success'];
 
-export default function WizardPage() {
+export default function PropertyWizard() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [extractedData, setExtractedData] = useState(null);
