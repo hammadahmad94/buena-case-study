@@ -1,4 +1,3 @@
-import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 
 export default function PropertyCard({ property }) {
@@ -7,7 +6,7 @@ export default function PropertyCard({ property }) {
       <Card>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image={`https://picsum.photos/seed/${property.id}/300/200`}
           alt="Property Image"
         />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { Container, Typography, Button, Box, Grid, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { getProperties } from './api';
@@ -11,21 +11,21 @@ export default function OverviewDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchProperties = async () => {
-      try {
-        const data = await getProperties();
-        setProperties(data);
-      } catch (err) {
-        console.error("Failed to fetch properties", err);
-        setError("Failed to load properties.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProperties();
+  const fetchProperties = useCallback(async () => {
+    try {
+      const data = await getProperties();
+      setProperties(data);
+    } catch (err) {
+      console.error("Failed to fetch properties", err);
+      setError("Failed to load properties.");
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchProperties();
+  }, [fetchProperties]);
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4 }}>

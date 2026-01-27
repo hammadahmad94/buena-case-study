@@ -1,5 +1,4 @@
-import React from 'react';
-import { Grid, Skeleton, Card, CardContent } from '@mui/material';
+import { Grid, Skeleton, Card, CardContent, CardMedia } from '@mui/material';
 
 export default function SkeletonGrid() {
   return (
@@ -7,7 +6,7 @@ export default function SkeletonGrid() {
       {[1, 2, 3, 4, 5, 6].map((item) => (
         <Grid item xs={12} sm={6} md={4} key={item}>
           <Card>
-            <Skeleton variant="rectangular" height={140} />
+            <Skeleton variant="rectangular" height={200} width={300}/>
             <CardContent>
               <Skeleton variant="text" height={30} width="80%" />
               <Skeleton variant="text" height={20} width="40%" />
