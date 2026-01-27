@@ -31,8 +31,10 @@ export default function UnitsReview({ units, buildings }) {
                               <TableCell>Type</TableCell>
                               <TableCell>Building</TableCell>
                               <TableCell>Floor</TableCell>
+                              <TableCell>Entrance</TableCell>
                               <TableCell>Rooms</TableCell>
                               <TableCell>Size</TableCell>
+                              <TableCell>Year</TableCell>
                               <TableCell>Share</TableCell>
                           </TableRow>
                       </TableHead>
@@ -45,8 +47,10 @@ export default function UnitsReview({ units, buildings }) {
                                       <TableCell>{u.type}</TableCell>
                                       <TableCell>{building ? `${building.street} ${building.number}` : 'Unknown'}</TableCell>
                                       <TableCell>{u.floor}</TableCell>
+                                      <TableCell>{u.entrance}</TableCell>
                                       <TableCell>{u.rooms}</TableCell>
                                       <TableCell>{u.size}</TableCell>
+                                      <TableCell>{u.constructionYear}</TableCell>
                                       <TableCell>{u.coOwnershipShare}</TableCell>
                                   </TableRow>
                               );

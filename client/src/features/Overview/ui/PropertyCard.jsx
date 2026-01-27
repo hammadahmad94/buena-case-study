@@ -14,6 +14,9 @@ export default function PropertyCard({ property }) {
           <Typography variant="h6" component="div">
             {property.name}
           </Typography>
+          <Typography variant="caption" display="block" color="text.secondary" gutterBottom>
+            ID: {property.id}
+          </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             {property.type}
           </Typography>

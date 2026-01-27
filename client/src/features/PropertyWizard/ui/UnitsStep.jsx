@@ -29,8 +29,10 @@ export default function UnitsStep({ units, setUnits, buildings }) {
       number: units.length + 1, // Auto-increment
       buildingId: defaultBuildingId,
       floor: 0,
+      entrance: '',
       rooms: 1,
       size: 0,
+      constructionYear: new Date().getFullYear(),
       coOwnershipShare: 0,
     };
     setUnits([...units, newUnit]);
@@ -60,8 +62,10 @@ export default function UnitsStep({ units, setUnits, buildings }) {
       valueOptions: buildingOptions,
     },
     { field: 'floor', headerName: 'Floor *', type: 'number', width: 80, editable: true },
+    { field: 'entrance', headerName: 'Entrance', width: 100, editable: true },
     { field: 'rooms', headerName: 'Rooms', type: 'number', width: 80, editable: true },
     { field: 'size', headerName: 'Size (qm)', type: 'number', width: 100, editable: true },
+    { field: 'constructionYear', headerName: 'Year', type: 'number', width: 90, editable: true },
     { field: 'coOwnershipShare', headerName: 'Share (1/1000)', type: 'number', width: 130, editable: true },
     {
       field: 'actions',
