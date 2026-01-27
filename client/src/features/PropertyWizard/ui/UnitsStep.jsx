@@ -76,7 +76,7 @@ export default function UnitsStep({ units, setUnits, buildings }) {
   ];
 
   return (
-    <Box sx={{ height: 500, width: '100%' }}>
+    <Box sx={{ height: 500, width: '100%', display: 'flex', flexDirection: 'column' }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h6">Units</Typography>
         <Button variant="outlined" startIcon={<AddIcon />} onClick={handleAddUnit}>
@@ -84,15 +84,17 @@ export default function UnitsStep({ units, setUnits, buildings }) {
         </Button>
       </Box>
       
-      <DataGrid
-        rows={units}
-        columns={columns}
-        editMode="row"
-        processRowUpdate={handleProcessRowUpdate}
-        onProcessRowUpdateError={(error) => console.error(error)}
-        slots={{ toolbar: GridToolbar }}
-        disableRowSelectionOnClick
-      />
+      <Box sx={{ flex: 1, minHeight: 0 }}>
+        <DataGrid
+            rows={units}
+            columns={columns}
+            editMode="row"
+            processRowUpdate={handleProcessRowUpdate}
+            onProcessRowUpdateError={(error) => console.error(error)}
+            slots={{ toolbar: GridToolbar }}
+            disableRowSelectionOnClick
+        />
+      </Box>
     </Box>
   );
 }

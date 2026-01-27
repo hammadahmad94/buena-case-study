@@ -49,7 +49,8 @@ export default function PropertyWizard() {
           };
           
           await saveProperty(payload);
-          setActiveStep((prev) => prev + 1); // Move to Success Step
+          // Redirect to dashboard on success
+          navigate('/');
       } catch (err) {
           console.error("Failed to save property", err);
           setError("Failed to create property. Please try again.");
@@ -127,7 +128,9 @@ export default function PropertyWizard() {
         handleBack={handleBack}
         handleNext={handleNext}
         onNavigateBack={() => navigate('/')}
+        finalActionLabel="Submit"
     >
+        {error && <Typography color="error" sx={{ mb: 2, textAlign: 'center' }}>{error}</Typography>}
         {activeStep === steps.length ? <SuccessStep /> : getStepContent(activeStep)}
     </WizardLayout>
   );
