@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Container, Typography, Button, Stepper, Step, StepLabel, Box, Paper } from '@mui/material';
+import { Container, Typography, Button, Stepper, Step, StepLabel, Box, Paper, CircularProgress, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-
+import { uploadPdf } from '../api/api';
 
 const steps = ['Upload PDF', 'Review Data', 'Success'];
 
@@ -9,6 +9,8 @@ export default function WizardPage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [extractedData, setExtractedData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -18,12 +20,55 @@ export default function WizardPage() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await uploadPdf(file);
+      setExtractedData(data);
+      handleNext();
+    } catch (err) {
+      console.error("Upload failed", err);
+      setError("Failed to upload and extract data. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const getStepContent = (step) => {
       switch(step) {
           case 0:
-              return <Typography>Upload Step Placeholder</Typography>;
+              return (
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" gap={3} py={5}>
+                    <Typography variant="body1">
+                        Please upload your "Declaration of Division" (Teilungserklärung) PDF.
+                    </Typography>
+                    
+                    {loading ? (
+                        <CircularProgress />
+                    ) : (
+                        <Button variant="contained" component="label" size="large">
+                            Upload PDF
+                            <input type="file" hidden accept="application/pdf" onChange={handleFileUpload} />
+                        </Button>
+                    )}
+
+                    {error && <Alert severity="error">{error}</Alert>}
+                </Box>
+              );
           case 1:
-               return <Typography>Review Step Placeholder</Typography>;
+               return (
+                <Box>
+                    <Typography variant="h6" gutterBottom>Extracted Data Preview</Typography>
+                    <pre style={{ backgroundColor: '#f5f5f5', padding: '15px', borderRadius: '5px', overflowX: 'auto' }}>
+                        {JSON.stringify(extractedData, null, 2)}
+                    </pre>
+                </Box>
+               );
           case 2:
               return <Typography>Success Step Placeholder</Typography>;
           default:
@@ -64,9 +109,12 @@ export default function WizardPage() {
               Back
             </Button>
             <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-            </Button>
+
+             {activeStep !== 0 && (
+                <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+                </Button>
+             )}
           </Box>
       </Paper>
     </Container>
