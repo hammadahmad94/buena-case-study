@@ -35,10 +35,34 @@ export default function PropertyWizard() {
         return;
     }
 
+    if (activeStep === 1 && buildings.length === 0) {
+        setShowValidation(true);
+        return;
+    }
+
+    if (activeStep === 2) {
+        if (units.length === 0) {
+            setShowValidation(true);
+            return;
+        }
+        const hasInvalidUnits = units.some(u => 
+            !u.type || 
+            !u.buildingId || 
+            u.floor === null || u.floor === undefined ||
+            !u.size || u.size <= 0
+        );
+        if (hasInvalidUnits) {
+            setShowValidation(true);
+            setError("Please fill in all required fields (Type, Building, Floor, Size > 0) for all units.");
+            return;
+        }
+    }
+
     if (activeStep === steps.length - 1) {
         await handleSave();
     } else {
         setShowValidation(false); // Reset validation for next step
+        setError(null); // Clear any previous errors
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
@@ -121,9 +145,9 @@ export default function PropertyWizard() {
             />
         );
       case 1:
-        return <BuildingsStep buildings={buildings} setBuildings={setBuildings} />;
+        return <BuildingsStep buildings={buildings} setBuildings={setBuildings} showValidation={showValidation} />;
       case 2:
-        return <UnitsStep units={units} setUnits={setUnits} buildings={buildings} />;
+        return <UnitsStep units={units} setUnits={setUnits} buildings={buildings} showValidation={showValidation} />;
       case 3:
         return <ReviewStep data={{ propertyDetails, buildings, units }} />;
       default:

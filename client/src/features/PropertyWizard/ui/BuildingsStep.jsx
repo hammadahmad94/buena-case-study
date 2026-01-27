@@ -2,13 +2,14 @@ import { useState } from 'react';
 import { 
   Box, 
   Typography, 
-  Button 
+  Button,
+  Alert
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import BuildingList from './buildings/BuildingList';
 import BuildingFormDialog from './buildings/BuildingFormDialog';
 
-export default function BuildingsStep({ buildings, setBuildings }) {
+export default function BuildingsStep({ buildings, setBuildings, showValidation }) {
   const [open, setOpen] = useState(false);
   const [editingBuilding, setEditingBuilding] = useState(null);
 
@@ -16,6 +17,7 @@ export default function BuildingsStep({ buildings, setBuildings }) {
     setEditingBuilding(building);
     setOpen(true);
   };
+   // ... rest of component
 
   const handleClose = () => {
     setOpen(false);
@@ -57,6 +59,10 @@ export default function BuildingsStep({ buildings, setBuildings }) {
             </Button>
         )}
       </Box>
+
+      {showValidation && buildings.length === 0 && (
+          <Alert severity="error" sx={{ mb: 2 }}>At least one building is required to proceed.</Alert>
+      )}
 
       <BuildingList 
         buildings={buildings}

@@ -1,9 +1,9 @@
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Alert } from '@mui/material';
 import { DataGrid, GridActionsCellItem, GridToolbar } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
 
-export default function UnitsStep({ units, setUnits, buildings }) {
+export default function UnitsStep({ units, setUnits, buildings, showValidation }) {
   
   const handleProcessRowUpdate = (newRow) => {
     const updatedUnits = units.map((row) => (row.id === newRow.id ? newRow : row));
@@ -64,7 +64,7 @@ export default function UnitsStep({ units, setUnits, buildings }) {
     { field: 'floor', headerName: 'Floor *', type: 'number', width: 80, editable: true },
     { field: 'entrance', headerName: 'Entrance', width: 100, editable: true },
     { field: 'rooms', headerName: 'Rooms', type: 'number', width: 80, editable: true },
-    { field: 'size', headerName: 'Size (qm)', type: 'number', width: 100, editable: true },
+    { field: 'size', headerName: 'Size (qm) *', type: 'number', width: 110, editable: true },
     { field: 'constructionYear', headerName: 'Year', type: 'number', width: 90, editable: true },
     { field: 'coOwnershipShare', headerName: 'Share (1/1000)', type: 'number', width: 130, editable: true },
     {
@@ -94,6 +94,10 @@ export default function UnitsStep({ units, setUnits, buildings }) {
         </Button>
       </Box>
       
+      {showValidation && units.length === 0 && (
+          <Alert severity="error" sx={{ mb: 2 }}>At least one unit is required to proceed.</Alert>
+      )}
+
       <Box sx={{ flex: 1, minHeight: 0 }}>
         <DataGrid
             rows={units}
