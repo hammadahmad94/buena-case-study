@@ -1,6 +1,6 @@
 const propertyService = require('../services/properties.service');
 
-const getAllProperties = async (res) => {
+const getAllProperties = async (req, res) => {
     try {
         const properties = await propertyService.findAll();
         res.json(properties);
