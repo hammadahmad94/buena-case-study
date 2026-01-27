@@ -45,7 +45,7 @@ const create = async (data) => {
                     units: {
                         create: b.units?.map(u => ({
                             type: u.type,
-                            number: u.number,
+                            number: String(u.number),
                             floor: parseInt(u.floor),
                             entrance: u.entrance,
                             rooms: parseFloat(u.rooms),
