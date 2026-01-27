@@ -3,6 +3,8 @@ import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { uploadPdf } from './api';
 import GeneralInfoStep from './ui/GeneralInfoStep';
+import BuildingsStep from './ui/BuildingsStep';
+import UnitsStep from './ui/UnitsStep';
 import ReviewStep from './ui/ReviewStep';
 import SuccessStep from './ui/SuccessStep';
 import WizardLayout from './ui/WizardLayout';
@@ -45,9 +47,21 @@ export default function PropertyWizard() {
       
       if (extractedData) {
          if (extractedData.name) updatePropertyDetails({ name: extractedData.name });
-         // TODO: Map buildings and units once we see the real API structure
+         
+         // Basic mapping for buildings if they exist in the extraction
+         if (extractedData.buildings && Array.isArray(extractedData.buildings)) {
+             const mappedBuildings = extractedData.buildings.map((b, index) => ({
+                 id: Date.now() + index,
+                 street: b.street || '',
+                 number: b.number || '',
+                 zip: b.zip || '',
+                 city: b.city || ''
+             }));
+             setBuildings(mappedBuildings);
+         }
+         
+         // Note: Logic for units would go here, often dependent on building mapping
       }
-      // We do NOT auto-advance; the user sees the form fill up.
       
     } catch (err) {
       console.error("Upload failed", err);
@@ -70,9 +84,9 @@ export default function PropertyWizard() {
             />
         );
       case 1:
-        return <Typography>Buildings Step </Typography>;
+        return <BuildingsStep buildings={buildings} setBuildings={setBuildings} />;
       case 2:
-        return <Typography>Units Step </Typography>;
+        return <UnitsStep units={units} setUnits={setUnits} buildings={buildings} />;
       case 3:
         return <ReviewStep data={{ propertyDetails, buildings, units }} />;
       default:
