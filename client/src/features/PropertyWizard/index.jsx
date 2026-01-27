@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { uploadPdf } from './api';
+import { uploadPdf, saveProperty } from './api';
 import GeneralInfoStep from './ui/GeneralInfoStep';
 import BuildingsStep from './ui/BuildingsStep';
 import UnitsStep from './ui/UnitsStep';
@@ -27,8 +27,35 @@ export default function PropertyWizard() {
   const [buildings, setBuildings] = useState([]); 
   const [units, setUnits] = useState([]);      
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    if (activeStep === steps.length - 1) {
+        await handleSave();
+    } else {
+        setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    }
+  };
+
+  const handleSave = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+          // Transform flat state into nested structure for API
+          const payload = {
+              ...propertyDetails,
+              buildings: buildings.map(b => ({
+                  ...b,
+                  units: units.filter(u => u.buildingId === b.id)
+              }))
+          };
+          
+          await saveProperty(payload);
+          setActiveStep((prev) => prev + 1); // Move to Success Step
+      } catch (err) {
+          console.error("Failed to save property", err);
+          setError("Failed to create property. Please try again.");
+      } finally {
+          setLoading(false);
+      }
   };
 
   const handleBack = () => {
