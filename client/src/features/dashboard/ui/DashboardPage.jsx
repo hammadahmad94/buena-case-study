@@ -2,7 +2,7 @@ import React from 'react';
 import { Container, Typography, Button, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-export default function Dashboard() {
+export default function DashboardPage() {
   const navigate = useNavigate();
 
   return (
