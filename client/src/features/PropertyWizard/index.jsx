@@ -27,10 +27,18 @@ export default function PropertyWizard() {
   const [buildings, setBuildings] = useState([]); 
   const [units, setUnits] = useState([]);      
 
+  const [showValidation, setShowValidation] = useState(false);
+
   const handleNext = async () => {
+    if (activeStep === 0 && !propertyDetails.name.trim()) {
+        setShowValidation(true);
+        return;
+    }
+
     if (activeStep === steps.length - 1) {
         await handleSave();
     } else {
+        setShowValidation(false); // Reset validation for next step
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
@@ -109,6 +117,7 @@ export default function PropertyWizard() {
                 onUpload={onUpload}
                 loading={loading}
                 error={error}
+                showValidation={showValidation}
             />
         );
       case 1:

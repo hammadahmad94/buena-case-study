@@ -12,7 +12,13 @@ export default function UnitsStep({ units, setUnits, buildings }) {
   };
 
   const handleDeleteClick = (id) => () => {
-    setUnits(units.filter((row) => row.id !== id));
+    const remainingUnits = units.filter((row) => row.id !== id);
+    // Auto-renumber
+    const reorderedUnits = remainingUnits.map((u, index) => ({
+        ...u,
+        number: index + 1
+    }));
+    setUnits(reorderedUnits);
   };
 
   const handleAddUnit = () => {
@@ -20,7 +26,7 @@ export default function UnitsStep({ units, setUnits, buildings }) {
     const newUnit = {
       id: Date.now(),
       type: 'Apartment',
-      number: '',
+      number: units.length + 1, // Auto-increment
       buildingId: defaultBuildingId,
       floor: 0,
       rooms: 1,
@@ -36,10 +42,10 @@ export default function UnitsStep({ units, setUnits, buildings }) {
   }));
 
   const columns = [
-    { field: 'number', headerName: 'Unit #', width: 90, editable: true },
+    { field: 'number', headerName: 'Unit #', width: 90, type: 'number', editable: false }, // Read-only index
     { 
       field: 'type', 
-      headerName: 'Type', 
+      headerName: 'Type *', 
       width: 130, 
       editable: true, 
       type: 'singleSelect',
@@ -47,13 +53,13 @@ export default function UnitsStep({ units, setUnits, buildings }) {
     },
     {
       field: 'buildingId',
-      headerName: 'Building',
+      headerName: 'Building *',
       width: 200,
       editable: true,
       type: 'singleSelect',
       valueOptions: buildingOptions,
     },
-    { field: 'floor', headerName: 'Floor', type: 'number', width: 80, editable: true },
+    { field: 'floor', headerName: 'Floor *', type: 'number', width: 80, editable: true },
     { field: 'rooms', headerName: 'Rooms', type: 'number', width: 80, editable: true },
     { field: 'size', headerName: 'Size (qm)', type: 'number', width: 100, editable: true },
     { field: 'coOwnershipShare', headerName: 'Share (1/1000)', type: 'number', width: 130, editable: true },

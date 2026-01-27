@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import PdfUpload from './PdfUpload';
 
-export default function GeneralInfoStep({ data, updateData, onUpload, loading, error }) {
+export default function GeneralInfoStep({ data, updateData, onUpload, loading, error, showValidation }) {
   const handleChange = (e) => {
     updateData({ [e.target.name]: e.target.value });
   };
@@ -21,12 +21,15 @@ export default function GeneralInfoStep({ data, updateData, onUpload, loading, e
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
+                required
                 fullWidth
                 label="Property Name"
                 name="name"
                 value={data.name}
                 onChange={handleChange}
                 placeholder="e.g. Sunset Heights"
+                error={showValidation && !data.name.trim()}
+                helperText={showValidation && !data.name.trim() ? "Property Name is required" : ""}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
