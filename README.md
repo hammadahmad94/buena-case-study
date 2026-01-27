@@ -1,4 +1,4 @@
-# Property Management Wizard
+# Buena Property Management Wizard
 
 A comprehensive dashboard and property creation wizard designed for the Buena case study. This application streamlines the process of extracting property data from "Declaration of Division" (Teilungserklärung) PDFs and managing complex property structures.
 
