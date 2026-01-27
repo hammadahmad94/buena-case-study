@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 
 
 import OverviewDashboard from './features/Overview';
-import WizardPage from './features/wizard/ui/WizardPage';
+import WizardPage from './features/Wizard';
 
 function App() {
   return (
