@@ -1,3 +1,5 @@
+[Watch Video Presentation](https://www.dropbox.com/scl/fi/25snpjaakbiot46nwv5oo/Beuna-case-study.mov?rlkey=vpp8pk22deeafzn18kmm1rjva&st=vdgce57x&dl=0)
+
 # Buena Property Management Wizard
 
 A comprehensive dashboard and property creation wizard designed for the Buena case study. This application streamlines the process of extracting property data from "Declaration of Division" (Teilungserklärung) PDFs and managing complex property structures.
