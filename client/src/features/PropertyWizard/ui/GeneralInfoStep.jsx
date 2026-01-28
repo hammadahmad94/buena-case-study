@@ -53,6 +53,8 @@ export default function GeneralInfoStep({ data, updateData, onUpload, loading, e
                 value={data.managerName || ''}
                 onChange={handleChange}
                 placeholder="Manager Name"
+                error={/\d/.test(data.managerName)}
+                helperText={/\d/.test(data.managerName) ? "Must be text only (no numbers)" : ""}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -63,6 +65,8 @@ export default function GeneralInfoStep({ data, updateData, onUpload, loading, e
                   value={data.accountantName || ''}
                   onChange={handleChange}
                   placeholder="Accountant Name"
+                  error={/\d/.test(data.accountantName)}
+                  helperText={/\d/.test(data.accountantName) ? "Must be text only (no numbers)" : ""}
                 />
             </Grid>
           </Grid>

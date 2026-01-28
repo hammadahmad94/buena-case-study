@@ -34,7 +34,9 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
   };
 
   const validate = () => {
-      return formData.street.trim() && formData.number.trim() && formData.zip.trim() && formData.city.trim();
+      const hasEmptyRequired = !formData.street.trim() || !formData.number.trim() || !formData.zip.trim() || !formData.city.trim();
+      const hasDigits = /\d/.test(formData.street) || /\d/.test(formData.city) || /\d/.test(formData.country);
+      return !hasEmptyRequired && !hasDigits;
   };
 
   const handleSubmit = () => {
@@ -58,8 +60,8 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
               name="street"
               value={formData.street}
               onChange={handleChange}
-              error={showErrors && !formData.street.trim()}
-              helperText={showErrors && !formData.street.trim() ? "Required" : ""}
+              error={(showErrors && !formData.street.trim()) || /\d/.test(formData.street)}
+              helperText={showErrors && !formData.street.trim() ? "Required" : /\d/.test(formData.street) ? "Must be text only (no numbers)" : ""}
             />
           </Grid>
           <Grid item xs={4}>
@@ -94,8 +96,8 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
               name="city"
               value={formData.city}
               onChange={handleChange}
-              error={showErrors && !formData.city.trim()}
-              helperText={showErrors && !formData.city.trim() ? "Required" : ""}
+              error={(showErrors && !formData.city.trim()) || /\d/.test(formData.city)}
+              helperText={showErrors && !formData.city.trim() ? "Required" : /\d/.test(formData.city) ? "Must be text only (no numbers)" : ""}
             />
         </Grid>
           <Grid item xs={12}>
@@ -106,6 +108,8 @@ export default function BuildingFormDialog({ open, onClose, onSave, editingBuild
               value={formData.country}
               onChange={handleChange}
               placeholder="e.g. Germany"
+              error={/\d/.test(formData.country)}
+              helperText={/\d/.test(formData.country) ? "Must be text only (no numbers)" : ""}
             />
           </Grid>
           <Grid item xs={12}>

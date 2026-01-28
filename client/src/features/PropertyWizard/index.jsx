@@ -21,8 +21,8 @@ export default function PropertyWizard() {
   const [propertyDetails, setPropertyDetails] = useState({
     name: '',
     type: 'WEG',
-    managerId: '',
-    accountantId: '',
+    managerName: '',
+    accountantName: '',
   });
   const [buildings, setBuildings] = useState([]); 
   const [units, setUnits] = useState([]);      
@@ -30,7 +30,8 @@ export default function PropertyWizard() {
   const [showValidation, setShowValidation] = useState(false);
 
   const handleNext = async () => {
-    if (activeStep === 0 && !propertyDetails.name.trim()) {
+    const hasDigits = /\d/.test(propertyDetails.managerName || '') || /\d/.test(propertyDetails.accountantName || '');
+    if (activeStep === 0 && (!propertyDetails.name.trim() || hasDigits)) {
         setShowValidation(true);
         return;
     }
