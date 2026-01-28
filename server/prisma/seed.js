@@ -34,8 +34,8 @@ async function main() {
     data: {
       name: 'Sunset Residences Berlin',
       type: 'WEG',
-      managerId: manager1.id,
-      accountantId: accountant1.id,
+      managerName: manager1.name,
+      accountantName: accountant1.name,
       buildings: {
         create: [
             {
@@ -76,8 +76,8 @@ async function main() {
     data: {
       name: 'Munich Tech Hub',
       type: 'MV',
-      managerId: manager2.id,
-      accountantId: accountant2.id,
+      managerName: manager2.name,
+      accountantName: accountant2.name,
       buildings: {
         create: [
             {
@@ -106,8 +106,8 @@ async function main() {
     data: {
       name: 'HafenCity Mixed Use',
       type: 'WEG',
-      managerId: manager1.id,
-      accountantId: accountant2.id,
+      managerName: manager1.name,
+      accountantName: accountant2.name,
       buildings: {
         create: [
             {
@@ -134,8 +134,8 @@ async function main() {
     data: {
       name: 'Villa Grünewald',
       type: 'MV',
-      managerId: manager2.id,
-      accountantId: accountant1.id,
+      managerName: manager2.name,
+      accountantName: accountant1.name,
       buildings: {
         create: [
             {

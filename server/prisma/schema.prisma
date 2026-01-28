@@ -11,10 +11,8 @@ model Property {
   id        String   @id @default(uuid())
   name      String
   type      String   // "WEG" or "MV"
-  managerId String?
-  manager   Manager? @relation(fields: [managerId], references: [id])
-  accountantId String?
-  accountant Accountant? @relation(fields: [accountantId], references: [id])
+  managerName String?
+  accountantName String?
   
   buildings Building[]
 
@@ -61,12 +59,10 @@ model Manager {
   id    String @id @default(uuid())
   name  String
   email String
-  properties Property[]
 }
 
 model Accountant {
   id    String @id @default(uuid())
   name  String
   email String
-  properties Property[]
 }
