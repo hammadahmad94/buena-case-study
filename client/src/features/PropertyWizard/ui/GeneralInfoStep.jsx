@@ -46,25 +46,23 @@ export default function GeneralInfoStep({ data, updateData, onUpload, loading, e
               </TextField>
             </Grid>
             <Grid item xs={12} sm={6}>
-              {/* Placeholder for manager selection */}
               <TextField
                 fullWidth
                 label="Property Manager"
-                name="managerId"
-                value={data.managerId}
+                name="managerName"
+                value={data.managerName || ''}
                 onChange={handleChange}
-                helperText="ID or Name"
+                placeholder="Manager Name"
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              {/* Placeholder for accountant selection */}
               <TextField
                   fullWidth
                   label="Accountant"
-                  name="accountantId"
-                  value={data.accountantId}
+                  name="accountantName"
+                  value={data.accountantName || ''}
                   onChange={handleChange}
-                  helperText="ID or Name"
+                  placeholder="Accountant Name"
                 />
             </Grid>
           </Grid>
