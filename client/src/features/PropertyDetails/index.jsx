@@ -91,11 +91,11 @@ export default function PropertyDetails() {
         <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle2" color="text.secondary">Managed By</Typography>
-                <Typography variant="body1">{property.managerId || 'Not Assigned'}</Typography>
+                <Typography variant="body1">{property.manager?.name || 'Not Assigned'}</Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
                 <Typography variant="subtitle2" color="text.secondary">Accountant</Typography>
-                <Typography variant="body1">{property.accountantId || 'Not Assigned'}</Typography>
+                <Typography variant="body1">{property.accountant?.name || 'Not Assigned'}</Typography>
             </Grid>
         </Grid>
       </Paper>
