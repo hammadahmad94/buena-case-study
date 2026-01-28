@@ -6,9 +6,18 @@ import AddIcon from '@mui/icons-material/Add';
 export default function UnitsStep({ units, setUnits, buildings, showValidation }) {
   
   const handleProcessRowUpdate = (newRow) => {
-    const updatedUnits = units.map((row) => (row.id === newRow.id ? newRow : row));
+    // Enforce non-negative values
+    const processedRow = {
+        ...newRow,
+        floor: newRow.floor < 0 ? 0 : newRow.floor,
+        rooms: newRow.rooms < 0 ? 0 : newRow.rooms,
+        size: newRow.size < 0 ? 0 : newRow.size,
+        coOwnershipShare: newRow.coOwnershipShare < 0 ? 0 : newRow.coOwnershipShare,
+    };
+
+    const updatedUnits = units.map((row) => (row.id === processedRow.id ? processedRow : row));
     setUnits(updatedUnits);
-    return newRow;
+    return processedRow;
   };
 
   const handleDeleteClick = (id) => () => {

@@ -15,11 +15,11 @@ export default function PropertyDetailsReview({ details }) {
         </Grid>
         <Grid item xs={6} md={3}>
           <Typography variant="caption" color="text.secondary">Manager</Typography>
-          <Typography variant="body1">{details.managerId || 'Not assigned'}</Typography>
+          <Typography variant="body1">{details.managerName || 'Not assigned'}</Typography>
         </Grid>
         <Grid item xs={6} md={3}>
           <Typography variant="caption" color="text.secondary">Accountant</Typography>
-          <Typography variant="body1">{details.accountantId || 'Not assigned'}</Typography>
+          <Typography variant="body1">{details.accountantName || 'Not assigned'}</Typography>
         </Grid>
       </Grid>
     </Paper>
