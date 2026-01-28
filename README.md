@@ -40,9 +40,15 @@ npm run dev
 
 ## Environment Variables
 
-Create a `server/.env` file:
+### 1. Server (`server/.env`)
 
 ```env
 DATABASE_URL="file:./dev.db"
 GEMINI_KEY="your_api_key"
+```
+
+### 2. Client (`client/.env`)
+
+```env
+VITE_API_URL="http://localhost:3001/api"
 ```
