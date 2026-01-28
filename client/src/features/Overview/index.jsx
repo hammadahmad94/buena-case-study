@@ -31,7 +31,7 @@ export default function OverviewDashboard() {
     <Container maxWidth="lg" sx={{ mt: 4 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={4}>
         <Typography variant="h4" component="h1" fontWeight="bold">
-          Overview Dashboard
+          Overview
         </Typography>
         <Button variant="contained" color="primary" onClick={() => navigate('/create')}>
           Create New Property
